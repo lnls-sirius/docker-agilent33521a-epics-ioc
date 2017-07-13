@@ -2,7 +2,7 @@ Docker image for the Agilent 33521A Waveform Generator EPICS IOC
 ================================================================
 
 This repository contains the Dockerfile used to create the Docker image with the
-EPICS IOC for the Agilent 33521A.
+[EPICS IOC for the Agilent 33521A](https://github.com/lnls-dig/agilent33521a-epics-ioc).
 
 ## Running the IOC
 
