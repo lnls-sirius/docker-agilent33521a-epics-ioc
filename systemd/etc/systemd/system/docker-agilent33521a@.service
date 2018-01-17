@@ -1,0 +1,19 @@
+[Unit]
+Description=AGILENT33521A container instance %I
+Requires=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+RestartSec=2
+EnvironmentFile=/etc/sysconfig/docker-agilent33521a-epics-ioc
+EnvironmentFile=/etc/sysconfig/docker-agilent33521a-epics-ioc-mapping
+Environment=IMAGE_VERSION=debian-9
+# Used inside runDockerAGILENT33521A script
+Environment=AGILENT33521A_INSTANCE=%i
+ExecStartPre=-/usr/bin/docker pull lnlsdig/agilent33521a-epics-ioc:${IMAGE_VERSION}
+ExecStart=/usr/local/bin/runDockerAgilent33521a.sh
+ExecStop=/usr/local/bin/stopDockerAgilent33521a.sh
+
+[Install]
+WantedBy=multi-user.target
