@@ -1,14 +1,23 @@
-FROM lnlsdig/epics-stream_2_7_7
+FROM lnls/epics-dist:debian-9.2
 
-RUN git clone https://github.com/lnls-dig/agilent33521a-epics-ioc.git /opt/epics/agilent33521a && \
-    cd /opt/epics/agilent33521a && \
-    git checkout e67c587993cf83bb90d25be9781ce00a29cc18db && \
-    echo 'EPICS_BASE=/opt/epics/base' > configure/RELEASE.local && \
-    echo 'SUPPORT=/opt/epics/synApps_5_8/support' >> configure/RELEASE.local && \
-    echo 'ASYN=$(SUPPORT)/asyn-4-26' >> configure/RELEASE.local && \
-    echo 'STREAM=/opt/epics/stream' >> configure/RELEASE.local && \
-    make install
+ENV IOC_REPO agilent33521a-epics-ioc
+ENV BOOT_DIR iocagilent33521a
+ENV COMMIT v1.0.0
 
-WORKDIR /opt/epics/agilent33521a/iocBoot/iocagilent33521a
+RUN git clone https://github.com/lnls-dig/${IOC_REPO}.git /opt/epics/${IOC_REPO} && \
+    cd /opt/epics/${IOC_REPO} && \
+    git checkout ${COMMIT} && \
+    sed -i -e 's|^EPICS_BASE=.*$|EPICS_BASE=/opt/epics/base|' configure/RELEASE && \
+    sed -i -e 's|^SUPPORT=.*$|SUPPORT=/opt/epics/synApps_5_8/support|' configure/RELEASE && \
+    sed -i -e 's|^STREAM=.*$|STREAM=/opt/epics/stream|' configure/RELEASE && \
+    make && \
+    make install && \
+    make clean
 
-ENTRYPOINT ["/opt/epics/agilent33521a/iocBoot/iocagilent33521a/run.sh"]
+# Source environment variables until we figure it out
+# where to put system-wide env-vars on docker-debian
+RUN . /root/.bashrc
+
+WORKDIR /opt/epics/startup/ioc/${IOC_REPO}/iocBoot/${BOOT_DIR}
+
+ENTRYPOINT ["./runProcServ.sh"]
