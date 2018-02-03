@@ -36,7 +36,7 @@ export EPICS_DEVICE_PORT=${!AGILENT33521A_CURRENT_DEVICE_PORT}
     --volumes-from agilent33521a-epics-ioc-${AGILENT33521A_INSTANCE}-volume \
     --name agilent33521a-epics-ioc-${AGILENT33521A_INSTANCE} \
     lnlsdig/agilent33521a-epics-ioc:${IMAGE_VERSION} \
-    -i ${EPICS_DEVICE_IP} \
-    -p ${EPICS_DEVICE_PORT} \
-    -P ${EPICS_PV_AREA_PREFIX} \
-    -R ${EPICS_PV_DEVICE_PREFIX} \
+    -i "${EPICS_DEVICE_IP}" \
+    -p "${EPICS_DEVICE_PORT}" \
+    -P "${EPICS_PV_AREA_PREFIX}" \
+    -R "${EPICS_PV_DEVICE_PREFIX}" \
