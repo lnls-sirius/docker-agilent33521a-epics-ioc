@@ -1,16 +1,17 @@
-FROM lnls/epics-dist:debian-9.2
+FROM lnls/epics-dist:base-3.15-debian-9
 
 ENV IOC_REPO agilent33521a-epics-ioc
 ENV BOOT_DIR iocagilent33521a
 ENV COMMIT v1.1.1
 
-RUN git clone https://github.com/lnls-dig/${IOC_REPO}.git /opt/epics/${IOC_REPO} && \
+RUN echo "nameserver 10.0.0.71" >> /etc/resolv.conf && \
+    git clone https://github.com/lnls-dig/${IOC_REPO}.git /opt/epics/${IOC_REPO} && \
     cd /opt/epics/${IOC_REPO} && \
     git checkout ${COMMIT} && \
     sed -i -e 's|^EPICS_BASE=.*$|EPICS_BASE=/opt/epics/base|' configure/RELEASE && \
-    sed -i -e 's|^SUPPORT=.*$|SUPPORT=/opt/epics/synApps_5_8/support|' configure/RELEASE && \
-    sed -i -e 's|^STREAM=.*$|STREAM=/opt/epics/stream|' configure/RELEASE && \
-    sed -i -e 's|^AUTOSAVE=.*$|AUTOSAVE=$(SUPPORT)/autosave-5-6-1|' configure/RELEASE && \
+    sed -i -e 's|^SUPPORT=.*$|SUPPORT=/opt/epics/synApps-lnls-R0-0-2/support|' configure/RELEASE && \
+    sed -i -e 's|^STREAM=.*$|STREAM=$(SUPPORT)/stream-R2-7-7|' configure/RELEASE && \
+    sed -i -e 's|^AUTOSAVE=.*$|AUTOSAVE=$(SUPPORT)/autosave-R5-9|' configure/RELEASE && \
     make && \
     make install && \
     make clean
