@@ -2,7 +2,7 @@ FROM lnls/epics-dist:base-3.15-debian-9
 
 ENV IOC_REPO agilent33521a-epics-ioc
 ENV BOOT_DIR iocagilent33521a
-ENV COMMIT v1.1.1
+ENV COMMIT v1.1.2
 
 RUN echo "nameserver 10.0.0.71" >> /etc/resolv.conf && \
     git clone https://github.com/lnls-dig/${IOC_REPO}.git /opt/epics/${IOC_REPO} && \
