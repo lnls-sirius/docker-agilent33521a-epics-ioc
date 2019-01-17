@@ -9,7 +9,7 @@ RUN echo "nameserver 10.0.0.71" >> /etc/resolv.conf && \
     cd /opt/epics/${IOC_REPO} && \
     git checkout ${COMMIT} && \
     sed -i -e 's|^EPICS_BASE=.*$|EPICS_BASE=/opt/epics/base|' configure/RELEASE && \
-    sed -i -e 's|^SUPPORT=.*$|SUPPORT=/opt/epics/synApps-lnls-R0-0-2/support|' configure/RELEASE && \
+    sed -i -e 's|^SUPPORT=.*$|SUPPORT=/opt/epics/synApps-lnls-R1-0-0/support|' configure/RELEASE && \
     sed -i -e 's|^STREAM=.*$|STREAM=$(SUPPORT)/stream-R2-7-7|' configure/RELEASE && \
     sed -i -e 's|^AUTOSAVE=.*$|AUTOSAVE=$(SUPPORT)/autosave-R5-9|' configure/RELEASE && \
     make && \
