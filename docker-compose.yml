@@ -10,7 +10,7 @@ services:
         org.opencontainers.image.source: https://github.com/${IOC_GROUP}/${IOC_REPO}.git
       args:
         BASE_VERSION: ${BASE_VERSION}
-        COMMIT: ${COMMIT}
+        COMMIT_: ${COMMIT}
         DEBIAN_VERSION: ${DEBIAN_VERSION}
         IOC_GROUP: ${IOC_GROUP}
         IOC_REPO: ${IOC_REPO}
